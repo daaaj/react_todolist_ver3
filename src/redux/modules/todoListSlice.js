@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // 초기값
 const initialState = {
-    todos: [],
+    todoList: [],
     isLoading: false,
     isError: false,
     error: null,
@@ -13,7 +13,6 @@ const initialState = {
 export const __getTodoList = createAsyncThunk('getTodoList', async (payload, thunkAPI) => {
     try {
         const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/todoList`);
-
         return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
         return thunkAPI.rejectWithValue(error);
@@ -24,7 +23,6 @@ export const __getTodoList = createAsyncThunk('getTodoList', async (payload, thu
 export const todoListSlice = createSlice({
     name: 'todoList',
     initialState,
-    // 액션함수
     reducers: {},
     // 미들웨어
     extraReducers: (builder) => {
@@ -42,6 +40,7 @@ export const todoListSlice = createSlice({
             state.isError = true;
             state.error = action.payload;
         });
+        // 강의버전
         // [__getTodoList.pending]: (state, action) => {
         //     state.isLoading = true;
         //     state.isError = false;
@@ -60,6 +59,6 @@ export const todoListSlice = createSlice({
 });
 
 // 액션함수 넣기
-export const {} = todoListSlice.actions;
+export const { createTodo } = todoListSlice.actions;
 // 리듀서
 export default todoListSlice.reducer;

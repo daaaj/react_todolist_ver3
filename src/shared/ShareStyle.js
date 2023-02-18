@@ -36,6 +36,7 @@ export const GlobalStyle = createGlobalStyle`
             font-style: normal;
         }
         font-family: 'UhBeeKang-Ja';
+        user-select: none;
     }
 `;
 

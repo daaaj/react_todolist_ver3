@@ -3,6 +3,7 @@ import FooterLayout from '../layout/FooterLayout';
 import HeaderLayout from '../layout/HeaderLayout';
 import MainPage from '../pages/MainPage';
 import * as S from './ShareStyle';
+import DetailPage from '../pages/DetailPage';
 
 const GlobalStyle = S.GlobalStyle;
 
@@ -14,7 +15,7 @@ function App() {
                 <HeaderLayout />
                 <Routes>
                     <Route path="/" element={<MainPage />} />
-                    {/* <Route path="/:id" element={<Detail />} /> */}
+                    <Route path="/:id" element={<DetailPage />} />
                 </Routes>
                 <FooterLayout />
             </BrowserRouter>
