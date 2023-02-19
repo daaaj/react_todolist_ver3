@@ -16,45 +16,89 @@ const ModifyTodoBackground = styled.div`
 `;
 
 const ModifyTodoBox = styled(S.DivFlexColumn)`
-    background-color: lavender;
-    width: 50rem;
-    height: 50rem;
-
+    background-color: #fff5e4;
+    width: 40rem;
+    height: 40rem;
+    border-radius: 3.125rem;
     // 맨 위로
     z-index: 999;
-    // 중앙배치
-    // absolute : 상위요소 비례해서..
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 `;
+const ModifyInput = styled.input`
+    width: 25rem;
+    height: 1.875rem;
+    margin: 1.25rem 0;
+    padding: 10px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 0.625rem;
+
+    &:focus {
+        outline: 3px solid #ff9494;
+    }
+`;
+const ModifyContent = styled.textarea`
+    width: 25rem;
+    height: 12.5rem;
+    resize: none;
+    margin-bottom: 1.875rem;
+    padding: 10px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 0.625rem;
+    &:focus {
+        outline: 3px solid #ff9494;
+    }
+`;
+const ModifyButtonArea = styled(S.DivFlexColumn)`
+    flex-direction: row;
+    gap: 1.875rem;
+
+    > button {
+        width: 5rem;
+        height: 1.875rem;
+        border: none;
+        border-radius: 0.625rem;
+        cursor: pointer;
+        background-color: #ffd1d1;
+        &:hover {
+            background-color: #ff9494;
+        }
+    }
+`;
+
 function ModifyTodo({ todo, display, setDisplay }) {
     const [newTitle, setNewTitle, onChangeNewTitle] = useInput(todo.title);
     const [newContent, setNewContent, onChangeNewContent] = useInput(todo.content);
 
+    // 취소버튼 클릭시
+    const modifyCancleButton = () => {
+        setDisplay('none');
+    };
+
     // 수정하기 클릭시
     const modifyTodoButton = () => {
-        axios.patch(`${process.env.REACT_APP_SERVER_URL}/todoList/${todo.id}`, {
-            title: newTitle,
-            content: newContent,
-        });
-        setDisplay('none');
+        if (newTitle !== '' && newContent !== '') {
+            axios.patch(`${process.env.REACT_APP_SERVER_URL}/todoList/${todo.id}`, {
+                title: newTitle,
+                content: newContent,
+            });
+            setDisplay('none');
+        }
     };
 
     return (
         <ModifyTodoBackground display={display}>
             <ModifyTodoBox>
-                <input value={newTitle} onChange={onChangeNewTitle} />
-                <textarea value={newContent} onChange={onChangeNewContent}></textarea>
-                <button
-                    onClick={() => {
-                        setDisplay('none');
-                    }}
-                >
-                    취소
-                </button>
-                <button onClick={modifyTodoButton}>수정</button>
+                <ModifyInput value={newTitle} onChange={onChangeNewTitle} />
+                <ModifyContent value={newContent} onChange={onChangeNewContent}></ModifyContent>
+                <ModifyButtonArea>
+                    <button onClick={modifyCancleButton}>취소</button>
+                    <button onClick={modifyTodoButton}>수정</button>
+                </ModifyButtonArea>
             </ModifyTodoBox>
         </ModifyTodoBackground>
     );

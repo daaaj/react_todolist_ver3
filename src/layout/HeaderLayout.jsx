@@ -3,14 +3,14 @@ import styled from 'styled-components';
 import * as S from '../shared/ShareStyle';
 
 const Header = styled(S.DivFlexColumn.withComponent('header'))`
-    background-color: aqua;
     height: 6.25rem;
-    max-width: 75rem;
+    max-width: 62.5rem;
     margin: 0px auto;
+    margin-top: 2rem;
+    font-size: 1.8rem;
 `;
 
 function HeaderLayout() {
-    return <Header>HeaderLayout</Header>;
+    return <Header>JEONGDA TODOLIST</Header>;
 }
-
 export default HeaderLayout;

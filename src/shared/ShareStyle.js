@@ -34,8 +34,27 @@ export const GlobalStyle = createGlobalStyle`
             src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeeKang-Ja.woff') format('woff');
             font-weight: normal;
             font-style: normal;
+        } 
+        
+        @font-face {
+            font-family: 'RixYeoljeongdo_Regular';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2102-01@1.0/RixYeoljeongdo_Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        } 
+        @font-face {
+            font-family: '양진체';
+            src: url('https://cdn.jsdelivr.net/gh/supernovice-lab/font@0.9/yangjin.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
         }
-        font-family: 'UhBeeKang-Ja';
+        @font-face {
+            font-family: 'HS-Regular';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/HS-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        font-family: 'HS-Regular';
         user-select: none;
     }
 `;
