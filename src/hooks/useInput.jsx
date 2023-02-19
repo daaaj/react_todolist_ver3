@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 // 커스텀 hook
-function UseInput() {
+function useInput() {
     const [value, setValue] = useState('');
 
     const handler = (e) => {
@@ -9,4 +9,4 @@ function UseInput() {
     };
     return [value, setValue, handler];
 }
-export default UseInput;
+export default useInput;

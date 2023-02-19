@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import * as S from '../shared/ShareStyle';
-import UseInput from '../hooks/UseInput';
+import useInput from '../hooks/useInput';
 import { __createTodo } from '../redux/modules/todoListSlice';
 import axios from 'axios';
 
@@ -32,8 +32,8 @@ const CreateTodoBox = styled(S.DivFlexColumn)`
 `;
 
 function CreateTodo({ display, setDisplay }) {
-    const [title, setTitle, onChangeTitle] = UseInput();
-    const [content, setContent, onChangeContent] = UseInput();
+    const [title, setTitle, onChangeTitle] = useInput();
+    const [content, setContent, onChangeContent] = useInput();
 
     // 취소버튼 클릭시
     const cancleButton = () => {
