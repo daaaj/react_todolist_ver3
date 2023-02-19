@@ -4,7 +4,7 @@ import * as S from '../shared/ShareStyle';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { __getTodoList } from '../redux/modules/todoListSlice';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const TodoListArea = styled(S.DivFlexColumn)`
     background-color: cadetblue;
@@ -22,11 +22,10 @@ const TodoBox = styled(S.DivFlexColumn)`
 function TodoList({ display }) {
     const dispatch = useDispatch();
 
+    // 첫 로딩될 때 리스트 가져오기 & display 바뀔때
     const { isLoading, error, todoList } = useSelector((state) => {
         return state.todoList;
     });
-
-    // 첫 로딩될 때 리스트 가져오기 & display 바뀔때
     useEffect(() => {
         dispatch(__getTodoList());
     }, [dispatch, display]);
@@ -38,10 +37,9 @@ function TodoList({ display }) {
     if (error) {
         return <div>{error.message}</div>;
     }
-    console.log(todoList);
     return (
         <TodoListArea>
-            {todoList?.map((list) => {
+            {todoList.map((list) => {
                 return (
                     <TodoBox key={list.id}>
                         <span>{list.title}</span>

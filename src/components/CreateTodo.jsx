@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import * as S from '../shared/ShareStyle';
 import UseInput from '../hooks/UseInput';
-import { useDispatch } from 'react-redux';
 import { __createTodo } from '../redux/modules/todoListSlice';
 import axios from 'axios';
 
@@ -36,8 +35,6 @@ function CreateTodo({ display, setDisplay }) {
     const [title, setTitle, onChangeTitle] = UseInput();
     const [content, setContent, onChangeContent] = UseInput();
 
-    const dispatch = useDispatch();
-
     // 취소버튼 클릭시
     const cancleButton = () => {
         setDisplay('none');
@@ -45,11 +42,14 @@ function CreateTodo({ display, setDisplay }) {
 
     // 추가버튼 클릭시
     const createTodoButton = async () => {
-        axios.post(`${process.env.REACT_APP_SERVER_URL}/todoList`, { title, content });
-        // 모달 여부
-        setDisplay('none');
-        setTitle('');
-        setContent('');
+        // input값 빈칸 아닐때만
+        if (title !== '' && content !== '') {
+            axios.post(`${process.env.REACT_APP_SERVER_URL}/todoList`, { title, content });
+            // 모달 여부
+            setDisplay('none');
+            setTitle('');
+            setContent('');
+        }
     };
 
     return (

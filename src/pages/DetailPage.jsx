@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import UseInput from '../hooks/UseInput';
 import * as S from '../shared/ShareStyle';
-import { __getTodoDetail } from '../redux/modules/todoListSlice';
+import { __getTodoList } from '../redux/modules/todoListSlice';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 const DetailArea = styled(S.DivFlexColumn)`
     background-color: #a4cfa4;
@@ -16,18 +14,21 @@ const DetailArea = styled(S.DivFlexColumn)`
 `;
 
 function DetailPage() {
-    //const [titleDetail, setTitleDetail, onChangeTitleDetail] = UseInput();
     const dispatch = useDispatch();
-    const parms = useParams();
+    const { id } = useParams();
+    const navigate = useNavigate();
 
-    // id에 해당하는 todo 가져오기
+    // 모든 list 가져오기
     const { isLoading, error, todoList } = useSelector((state) => {
         return state.todoList;
     });
-    // 첫 로딩될 때 리스트 가져오기
+
     useEffect(() => {
-        dispatch(__getTodoDetail(parms.id));
+        dispatch(__getTodoList());
     }, [dispatch]);
+
+    // id = param todo 찾기
+    const todo = todoList.find((list) => list.id === parseInt(id));
 
     if (isLoading) {
         return <div>로딩 중...</div>;
@@ -35,20 +36,14 @@ function DetailPage() {
     if (error) {
         return <div>{error.message}</div>;
     }
-    //console.log('todoList : ', todoList);
 
     return (
         <DetailArea>
             <div>
-                <input value={todoList.title} readOnly></input>
-                <textarea value={todoList.content} readOnly></textarea>
-
-                <button onClick={backPage}>뒤로가기</button>
-
-                <Link to="/">
-                    <button>수정하기</button>
-                </Link>
-
+                <input value={todo.title} readOnly></input>
+                <textarea value={todo.content} readOnly></textarea>
+                <button onClick={() => navigate('/')}>뒤로가기</button>
+                <button>수정하기</button>
                 <button>삭제하기</button>
             </div>
         </DetailArea>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+// 커스텀 hook
 function UseInput() {
     const [value, setValue] = useState('');
 
