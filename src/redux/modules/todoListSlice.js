@@ -19,6 +19,15 @@ export const __getTodoList = createAsyncThunk('getTodoList', async (payload, thu
     }
 });
 
+export const __getTodoDetail = createAsyncThunk('getTodoDetail', async (payload, thunkAPI) => {
+    try {
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/todoList/${payload}`);
+        return thunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error);
+    }
+});
+
 // 리듀서
 export const todoListSlice = createSlice({
     name: 'todoList',
@@ -36,6 +45,20 @@ export const todoListSlice = createSlice({
             state.todoList = action.payload;
         });
         builder.addCase(__getTodoList.rejected, (state, action) => {
+            state.isLoading = false;
+            state.isError = true;
+            state.error = action.payload;
+        });
+        builder.addCase(__getTodoDetail.pending, (state, atcion) => {
+            state.isLoading = true;
+            state.isError = false;
+        });
+        builder.addCase(__getTodoDetail.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.isError = false;
+            state.todoList = action.payload;
+        });
+        builder.addCase(__getTodoDetail.rejected, (state, action) => {
             state.isLoading = false;
             state.isError = true;
             state.error = action.payload;
@@ -59,6 +82,6 @@ export const todoListSlice = createSlice({
 });
 
 // 액션함수 넣기
-export const { createTodo } = todoListSlice.actions;
+export const {} = todoListSlice.actions;
 // 리듀서
 export default todoListSlice.reducer;

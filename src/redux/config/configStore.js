@@ -6,5 +6,4 @@ const store = configureStore({
         todoList,
     },
 });
-
 export default store;

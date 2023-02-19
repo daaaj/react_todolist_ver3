@@ -38,10 +38,10 @@ function TodoList({ display }) {
     if (error) {
         return <div>{error.message}</div>;
     }
-
+    console.log(todoList);
     return (
         <TodoListArea>
-            {todoList.map((list) => {
+            {todoList?.map((list) => {
                 return (
                     <TodoBox key={list.id}>
                         <span>{list.title}</span>

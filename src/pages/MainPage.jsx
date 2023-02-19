@@ -3,7 +3,6 @@ import * as S from '../shared/ShareStyle';
 import TodoList from '../components/TodoList';
 import CreateTodo from '../components/CreateTodo';
 import { useState } from 'react';
-
 const MainArea = styled(S.DivFlexColumn)`
     background-color: lightpink;
     min-height: 60rem;
@@ -26,14 +25,16 @@ function MainPage() {
         setDisplay('block');
     };
     return (
-        <MainArea>
-            <MainHeader>
-                <span>todolist</span>
-                <button onClick={createTodoButton}>todo 작성</button>
-            </MainHeader>
-            <TodoList display={display} />
-            <CreateTodo display={display} setDisplay={setDisplay} />
-        </MainArea>
+        <>
+            <MainArea>
+                <MainHeader>
+                    <span>todolist</span>
+                    <button onClick={createTodoButton}>todo 작성</button>
+                </MainHeader>
+                <TodoList display={display} />
+                <CreateTodo display={display} setDisplay={setDisplay} />
+            </MainArea>
+        </>
     );
 }
 
