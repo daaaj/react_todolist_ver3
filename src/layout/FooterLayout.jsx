@@ -3,9 +3,9 @@ import styled from 'styled-components';
 
 const Footer = styled.footer`
     ${(props) => props.theme.FlexCol};
-    background-color: ${(props) => props.theme.CL.mainPink};
-    height: 5rem;
     ${(props) => props.theme.MainWidth};
+    height: 5rem;
+    background-color: ${(props) => props.theme.CL.mainPink};
 `;
 
 function FooterLayout() {

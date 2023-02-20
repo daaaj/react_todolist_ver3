@@ -4,6 +4,7 @@ import useInput from '../hooks/useInput';
 import { useDispatch } from 'react-redux';
 import { __modifyTodo } from '../redux/modules/modifyTodoSlice';
 import { useNavigate } from 'react-router';
+import Button from '../common/Button';
 
 const ModifyTodoBackground = styled.div`
     ${(props) => props.theme.ModalBackgroundStyle};
@@ -33,6 +34,7 @@ const ModifyTitleArea = styled.div`
 `;
 const ModifyContentArea = styled(ModifyTitleArea)`
     align-items: flex-start;
+
     > span {
         margin-top: 0.625rem;
     }
@@ -40,18 +42,6 @@ const ModifyContentArea = styled(ModifyTitleArea)`
 const ModifyButtonArea = styled.div`
     ${(props) => props.theme.FlexRow};
     gap: 1.875rem;
-
-    > button {
-        width: 5rem;
-        height: 1.875rem;
-        border: none;
-        border-radius: 0.625rem;
-        cursor: pointer;
-        background-color: #ffd1d1;
-        &:hover {
-            background-color: #ff9494;
-        }
-    }
 `;
 
 function ModifyTodo({ todo, display, setDisplay }) {
@@ -97,8 +87,12 @@ function ModifyTodo({ todo, display, setDisplay }) {
                     <ModifyContent value={newContent} onChange={onChangeNewContent}></ModifyContent>
                 </ModifyContentArea>
                 <ModifyButtonArea>
-                    <button onClick={modifyCancleButton}>취소</button>
-                    <button onClick={modifyTodoButton}>수정</button>
+                    <Button smallPtoP onClick={modifyCancleButton}>
+                        취소
+                    </Button>
+                    <Button smallPtoP onClick={modifyTodoButton}>
+                        수정
+                    </Button>
                 </ModifyButtonArea>
             </ModifyTodoBox>
         </ModifyTodoBackground>

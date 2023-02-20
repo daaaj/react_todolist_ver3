@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { __createTodo } from '../redux/modules/createTodoSlice';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+import Button from '../common/Button';
 
 const CreateTodoBackground = styled.div`
     ${(props) => props.theme.ModalBackgroundStyle}
@@ -31,6 +32,7 @@ const TodoTitleArea = styled.div`
 `;
 const TodoContentText = styled(TodoTitleArea)`
     align-items: flex-start;
+
     > span {
         margin-top: 0.625rem;
     }
@@ -38,18 +40,6 @@ const TodoContentText = styled(TodoTitleArea)`
 const ButtonArea = styled.div`
     ${(props) => props.theme.FlexRow};
     gap: 1.875rem;
-
-    > button {
-        width: 5rem;
-        height: 2rem;
-        border: none;
-        border-radius: 0.625rem;
-        cursor: pointer;
-        background-color: #ffd1d1;
-        &:hover {
-            background-color: #ff9494;
-        }
-    }
 `;
 
 function CreateTodo({ display, setDisplay }) {
@@ -98,10 +88,12 @@ function CreateTodo({ display, setDisplay }) {
                     <ContentTextArea type="text" {...register('content', { maxLength: 30 })} placeholder="할일 입력"></ContentTextArea>
                 </TodoContentText>
                 <ButtonArea>
-                    <button type="button" onClick={cancleButton}>
+                    <Button smallPtoP type="button" onClick={cancleButton}>
                         취소
-                    </button>
-                    <button type="submit">추가</button>
+                    </Button>
+                    <Button smallPtoP type="submit">
+                        추가
+                    </Button>
                 </ButtonArea>
             </CreateTodoBox>
         </CreateTodoBackground>

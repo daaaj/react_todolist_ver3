@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { __getTodoList } from '../redux/modules/todoListSlice';
 import { Link } from 'react-router-dom';
+import Button from '../common/Button';
 
 const TodoListArea = styled.div`
     ${(props) => props.theme.FlexCol};
@@ -15,42 +16,29 @@ const TodoListArea = styled.div`
 `;
 const TodoBox = styled.div`
     ${(props) => props.theme.FlexRowBetween};
-    background-color: ${(props) => props.theme.CL.mainBeige};
-
-    min-height: 10rem;
     width: 43.75rem;
-
-    border-radius: ${(props) => props.theme.BR.large};
+    min-height: 10rem;
     padding: 1.25rem 0;
+    border-radius: ${(props) => props.theme.BR.large};
+    background-color: ${(props) => props.theme.CL.mainBeige};
 `;
 const TodoBoxTextArea = styled.div`
     ${(props) => props.theme.FlexCol};
     width: 70%;
-    align-items: flex-start;
     margin-left: 1.875rem;
+    align-items: flex-start;
+
     > span {
-        font-size: ${(props) => props.theme.FS.l};
         margin: 1.25rem 0;
         padding: 0.625rem;
+        font-size: ${(props) => props.theme.FS.l};
         ${(props) => props.theme.TitleBorderLeft};
     }
+
     > p {
         margin-bottom: 1.25rem;
-        font-size: ${(props) => props.theme.FS.m};
         padding: 0.625rem;
-    }
-`;
-const DetailButton = styled.button`
-    margin-right: 1.875rem;
-    height: 2.5rem;
-    width: 4.5rem;
-    border: none;
-    border-radius: ${(props) => props.theme.BR.normal};
-    font-size: ${(props) => props.theme.FS.s};
-    cursor: pointer;
-    background-color: ${(props) => props.theme.CL.mainPink};
-    &:hover {
-        background-color: ${(props) => props.theme.CL.mainDeepPink};
+        font-size: ${(props) => props.theme.FS.m};
     }
 `;
 
@@ -82,7 +70,7 @@ function TodoList({ display }) {
                             <p>{list.content}</p>
                         </TodoBoxTextArea>
                         <Link to={`/${list.id}`}>
-                            <DetailButton>상세보기</DetailButton>
+                            <Button middlePtoP>상세보기</Button>
                         </Link>
                     </TodoBox>
                 );
