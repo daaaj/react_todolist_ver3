@@ -7,6 +7,6 @@ function useInput(text) {
     const handler = (e) => {
         setValue(e.target.value);
     };
-    return [value, setValue, handler];
+    return [value, handler];
 }
 export default useInput;

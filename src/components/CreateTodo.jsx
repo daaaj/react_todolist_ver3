@@ -4,6 +4,7 @@ import * as S from '../shared/ShareStyle';
 import useInput from '../hooks/useInput';
 import { __createTodo } from '../redux/modules/todoListSlice';
 import axios from 'axios';
+import { useForm } from 'react-hook-form';
 
 const CreateTodoBackground = styled.div`
     position: fixed;
@@ -16,7 +17,7 @@ const CreateTodoBackground = styled.div`
     display: ${(props) => (props.display === 'none' ? 'none' : 'block')};
 `;
 
-const CreateTodoBox = styled(S.DivFlexColumn)`
+const CreateTodoBox = styled(S.DivFlexColumn.withComponent('form'))`
     background-color: #fff5e4;
     width: 40rem;
     height: 40rem;
@@ -51,7 +52,21 @@ const ContentTextArea = styled.textarea`
     border: none;
     border-radius: 0.625rem;
     &:focus {
-        outline: 3px solid #ff9494;
+        outline: 0.1875rem solid #ff9494;
+    }
+`;
+const TodoTitleArea = styled(S.DivFlexColumn)`
+    flex-direction: row;
+    > span {
+        border-left: 0.3125rem solid #ff9494;
+        margin-right: 1.875rem;
+        padding-left: 0.3125rem;
+    }
+`;
+const TodoContentText = styled(TodoTitleArea)`
+    align-items: flex-start;
+    > span {
+        margin-top: 0.625rem;
     }
 `;
 const ButtonArea = styled(S.DivFlexColumn)`
@@ -72,34 +87,53 @@ const ButtonArea = styled(S.DivFlexColumn)`
 `;
 
 function CreateTodo({ display, setDisplay }) {
-    const [title, setTitle, onChangeTitle] = useInput();
-    const [content, setContent, onChangeContent] = useInput();
-
     // 취소버튼 클릭시
     const cancleButton = () => {
         setDisplay('none');
     };
 
+    // react hook useForm 사용
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
+
     // 추가버튼 클릭시
-    const createTodoButton = async () => {
-        // input값 빈칸 아닐때만
-        if (title !== '' && content !== '') {
-            axios.post(`${process.env.REACT_APP_SERVER_URL}/todoList`, { title, content });
-            // 모달 여부
+    const onSubmit = (data) => {
+        if (data.title === '') {
+            alert('제목 작성해야지?🤷‍♀️');
+        } else if (data.content === '') {
+            alert('내용 작성해야지?🤷‍♀️');
+        } else {
+            axios.post(`${process.env.REACT_APP_SERVER_URL}/todoList`, { title: data.title, content: data.content });
             setDisplay('none');
-            setTitle('');
-            setContent('');
         }
     };
 
+    // error
+    if (errors.title) {
+        alert('제목의 글자수는 15글자 미만으로...😉');
+    } else if (errors.content) {
+        alert('내용의 글자수는 30글자 미만으로...😉');
+    }
+
     return (
         <CreateTodoBackground display={display}>
-            <CreateTodoBox>
-                <TitleInput value={title} onChange={onChangeTitle} />
-                <ContentTextArea value={content} onChange={onChangeContent}></ContentTextArea>
+            <CreateTodoBox onSubmit={handleSubmit(onSubmit)}>
+                <TodoTitleArea>
+                    <span>제목</span>
+                    <TitleInput type="text" {...register('title', { maxLength: 10 })} />
+                </TodoTitleArea>
+                <TodoContentText>
+                    <span>내용</span>
+                    <ContentTextArea type="text" {...register('content', { maxLength: 30 })}></ContentTextArea>
+                </TodoContentText>
                 <ButtonArea>
-                    <button onClick={cancleButton}>취소</button>
-                    <button onClick={createTodoButton}>추가</button>
+                    <button type="button" onClick={cancleButton}>
+                        취소
+                    </button>
+                    <button type="submit">추가</button>
                 </ButtonArea>
             </CreateTodoBox>
         </CreateTodoBackground>

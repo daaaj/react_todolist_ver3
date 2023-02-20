@@ -71,8 +71,9 @@ const ModifyButtonArea = styled(S.DivFlexColumn)`
 `;
 
 function ModifyTodo({ todo, display, setDisplay }) {
-    const [newTitle, setNewTitle, onChangeNewTitle] = useInput(todo.title);
-    const [newContent, setNewContent, onChangeNewContent] = useInput(todo.content);
+    // custom hook 사용
+    const [newTitle, onChangeNewTitle] = useInput(todo.title);
+    const [newContent, onChangeNewContent] = useInput(todo.content);
 
     // 취소버튼 클릭시
     const modifyCancleButton = () => {
@@ -81,7 +82,15 @@ function ModifyTodo({ todo, display, setDisplay }) {
 
     // 수정하기 클릭시
     const modifyTodoButton = () => {
-        if (newTitle !== '' && newContent !== '') {
+        if (newTitle === '') {
+            alert('제목 작성해야지?🤷‍♀️');
+        } else if (newContent === '') {
+            alert('내용 작성해야지?🤷‍♀️');
+        } else if (newTitle.length > 10) {
+            alert('제목의 글자수는 15글자 미만으로...😉');
+        } else if (newContent.length > 30) {
+            alert('내용의 글자수는 30글자 미만으로...😉');
+        } else {
             axios.patch(`${process.env.REACT_APP_SERVER_URL}/todoList/${todo.id}`, {
                 title: newTitle,
                 content: newContent,
