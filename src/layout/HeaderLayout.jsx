@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import * as S from '../shared/ShareStyle';
 
-const Header = styled(S.DivFlexColumn.withComponent('header'))`
+const Header = styled.header`
+    ${(props) => props.theme.FlexCol};
+    ${(props) => props.theme.MainWidth};
     height: 6.25rem;
-    max-width: 62.5rem;
-    margin: 0px auto;
     margin-top: 2rem;
-    font-size: 1.8rem;
+    font-size: ${(props) => props.theme.FS.xl};
 `;
 
 function HeaderLayout() {

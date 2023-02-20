@@ -1,33 +1,35 @@
 import styled from 'styled-components';
-import * as S from '../shared/ShareStyle';
 import TodoList from '../components/TodoList';
 import CreateTodo from '../components/CreateTodo';
 import { useState } from 'react';
 
 const MainArea = styled.div`
+    ${(props) => props.theme.MainWidth}
     min-height: calc(100vh - 13.25rem);
-    max-width: 62.5rem;
-    margin: 0px auto;
 `;
-const MainContain = styled(S.DivFlexColumn)``;
+const MainContentArea = styled.div`
+    ${(props) => props.theme.FlexCol}
+`;
 
-const MainHeader = styled(S.DivFlexColumn)`
-    background-color: #ffe3e1;
+const MainHeader = styled.div`
+    ${(props) => props.theme.FlexRowBetween}
+
+    background-color: ${(props) => props.theme.CL.mainPink};
     height: 6.25rem;
-    flex-direction: row;
-    justify-content: space-between;
     margin: 1.25rem 0;
-    font-size: 1.5rem;
+    font-size: ${(props) => props.theme.FS.l};
+
     > span {
         margin-left: 1.875rem;
     }
+
     > button {
-        margin-right: 1.875rem;
+        margin-right: 1.25rem;
         height: 2.5rem;
         width: 6.5rem;
         border: none;
-        border-radius: 0.625rem;
-        font-size: 0.9rem;
+        border-radius: ${(props) => props.theme.BR.normal};
+        font-size: ${(props) => props.theme.FS.s};
         cursor: pointer;
         background-color: #fff5e4;
         &:hover {
@@ -46,14 +48,14 @@ function MainPage() {
 
     return (
         <MainArea>
-            <MainContain>
+            <MainContentArea>
                 <MainHeader>
                     <span>아휴...하기시러...😞</span>
                     <button onClick={createTodoButton}>Todo 작성</button>
                 </MainHeader>
                 <TodoList display={display} />
                 <CreateTodo display={display} setDisplay={setDisplay} />
-            </MainContain>
+            </MainContentArea>
         </MainArea>
     );
 }

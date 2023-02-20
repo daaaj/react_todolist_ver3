@@ -1,32 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import * as S from '../shared/ShareStyle';
+import ModifyTodo from '../components/ModifyTodo';
 import { __getTodo } from '../redux/modules/getTodoSlice';
 import { __deleteTodo } from '../redux/modules/deleteTodoSlice';
-import { useSelector } from 'react-redux';
-import ModifyTodo from '../components/ModifyTodo';
 
-const DetailArea = styled(S.DivFlexColumn)`
+const DetailArea = styled.div`
+    ${(props) => props.theme.FlexCol};
+
     height: calc(100vh - 13.5625rem);
-    max-width: 62.5rem;
-    margin: 0px auto;
-    border-top: 0.3125rem solid #ff9494;
+    ${(props) => props.theme.MainWidth};
+
+    border-top: 0.3125rem solid ${(props) => props.theme.CL.mainDeepPink};
 `;
 const DetailBox = styled.div`
-    background-color: #fff5e4;
+    background-color: ${(props) => props.theme.CL.mainBeige};
+
     padding: 1.25rem;
     padding-top: 2.5rem;
-    border-radius: 1.875rem;
+    border-radius: ${(props) => props.theme.BR.large};
 `;
 const DetailSpan = styled.span`
     width: 25rem;
     height: 1.875rem;
     margin: 1.875rem 0;
     padding: 0.625rem;
-    font-size: 1.8rem;
-    border-left: 0.3125rem solid #ff9494;
+    font-size: ${(props) => props.theme.FS.l};
+    border-left: 0.3125rem solid ${(props) => props.theme.CL.mainDeepPink};
 `;
 const DetailP = styled.p`
     width: 25rem;
@@ -34,12 +35,14 @@ const DetailP = styled.p`
     padding: 0.625rem;
     margin-top: 1.25rem;
     margin-bottom: 1.875rem;
-    font-size: 1.1rem;
+    font-size: ${(props) => props.theme.FS.m};
 `;
-const DetailButtonArea = styled(S.DivFlexColumn)`
-    flex-direction: row;
+const DetailButtonArea = styled.div`
+    ${(props) => props.theme.FlexRow};
+
     margin: 1.25rem 0;
     gap: 1.25rem;
+
     > button {
         height: 2rem;
         width: 5.5rem;
@@ -53,6 +56,7 @@ const DetailButtonArea = styled(S.DivFlexColumn)`
         }
     }
 `;
+
 function DetailPage() {
     const dispatch = useDispatch();
     const { id } = useParams();
@@ -72,7 +76,7 @@ function DetailPage() {
 
     // todo 삭제
     const deleteTodoButton = () => {
-        let isTrue = window.confirm('진짜 삭제한다요 ??');
+        let isTrue = window.confirm('진짜 삭제한다요??🤔');
         if (isTrue === true) {
             dispatch(__deleteTodo(id));
             navigate('/');

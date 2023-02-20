@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
     /* reset.css */
@@ -57,13 +57,4 @@ export const GlobalStyle = createGlobalStyle`
         font-family: 'HS-Regular';
         user-select: none;
     }
-`;
-
-export const DivFlexColumn = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    width: 100%;
 `;

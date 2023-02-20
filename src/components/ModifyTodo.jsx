@@ -1,63 +1,44 @@
 import React from 'react';
 import styled from 'styled-components';
-import * as S from '../shared/ShareStyle';
-import axios from 'axios';
 import useInput from '../hooks/useInput';
 import { useDispatch } from 'react-redux';
 import { __modifyTodo } from '../redux/modules/modifyTodoSlice';
 import { useNavigate } from 'react-router';
 
 const ModifyTodoBackground = styled.div`
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.7);
-
+    ${(props) => props.theme.ModalBackgroundStyle};
     display: ${(props) => (props.display === 'none' ? 'none' : 'block')};
 `;
-
-const ModifyTodoBox = styled(S.DivFlexColumn)`
-    background-color: #fff5e4;
-    width: 40rem;
-    height: 40rem;
-    border-radius: 3.125rem;
-    // 맨 위로
-    z-index: 999;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+const ModifyTodoBox = styled.div`
+    ${(props) => props.theme.FlexCol};
+    ${(props) => props.theme.ModalBoxStyle};
 `;
 const ModifyInput = styled.input`
-    width: 25rem;
-    height: 1.875rem;
-    margin: 1.25rem 0;
-    padding: 10px;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 0.625rem;
-
-    &:focus {
-        outline: 3px solid #ff9494;
-    }
+    ${(props) => props.theme.ModalTitle};
+    ${(props) => props.theme.ModalTitleContent};
 `;
 const ModifyContent = styled.textarea`
-    width: 25rem;
-    height: 12.5rem;
-    resize: none;
-    margin-bottom: 1.875rem;
-    padding: 10px;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 0.625rem;
-    &:focus {
-        outline: 3px solid #ff9494;
+    ${(props) => props.theme.ModalContent};
+    ${(props) => props.theme.ModalTitleContent};
+`;
+
+const ModifyTitleArea = styled.div`
+    ${(props) => props.theme.FlexRow};
+
+    > span {
+        ${(props) => props.theme.TitleBorderLeft}
+        margin-right: 1.875rem;
+        padding-left: 0.3125rem;
     }
 `;
-const ModifyButtonArea = styled(S.DivFlexColumn)`
-    flex-direction: row;
+const ModifyContentArea = styled(ModifyTitleArea)`
+    align-items: flex-start;
+    > span {
+        margin-top: 0.625rem;
+    }
+`;
+const ModifyButtonArea = styled.div`
+    ${(props) => props.theme.FlexRow};
     gap: 1.875rem;
 
     > button {
@@ -107,8 +88,14 @@ function ModifyTodo({ todo, display, setDisplay }) {
     return (
         <ModifyTodoBackground display={display}>
             <ModifyTodoBox>
-                <ModifyInput value={newTitle} onChange={onChangeNewTitle} />
-                <ModifyContent value={newContent} onChange={onChangeNewContent}></ModifyContent>
+                <ModifyTitleArea>
+                    <span>제목</span>
+                    <ModifyInput value={newTitle} onChange={onChangeNewTitle} />
+                </ModifyTitleArea>
+                <ModifyContentArea>
+                    <span>내용</span>
+                    <ModifyContent value={newContent} onChange={onChangeNewContent}></ModifyContent>
+                </ModifyContentArea>
                 <ModifyButtonArea>
                     <button onClick={modifyCancleButton}>취소</button>
                     <button onClick={modifyTodoButton}>수정</button>

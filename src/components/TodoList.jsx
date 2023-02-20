@@ -1,42 +1,42 @@
 import React from 'react';
 import styled from 'styled-components';
-import * as S from '../shared/ShareStyle';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { __getTodoList } from '../redux/modules/todoListSlice';
 import { Link } from 'react-router-dom';
 
-const TodoListArea = styled(S.DivFlexColumn)`
+const TodoListArea = styled.div`
+    ${(props) => props.theme.FlexCol};
     display: grid;
     grid-template-columns: 1fr;
     gap: 1.875rem;
     place-items: center;
     margin-bottom: 1.25rem;
 `;
+const TodoBox = styled.div`
+    ${(props) => props.theme.FlexRowBetween};
+    background-color: ${(props) => props.theme.CL.mainBeige};
 
-const TodoBox = styled(S.DivFlexColumn)`
-    background-color: #fff5e4;
     min-height: 10rem;
     width: 43.75rem;
-    border-radius: 1.875rem;
-    flex-direction: row;
-    justify-content: space-between;
-    padding-top: 1.25rem;
-    padding-bottom: 1.25rem;
+
+    border-radius: ${(props) => props.theme.BR.large};
+    padding: 1.25rem 0;
 `;
-const TodoBoxTextArea = styled(S.DivFlexColumn)`
+const TodoBoxTextArea = styled.div`
+    ${(props) => props.theme.FlexCol};
     width: 70%;
     align-items: flex-start;
     margin-left: 1.875rem;
     > span {
+        font-size: ${(props) => props.theme.FS.l};
         margin: 1.25rem 0;
-        font-size: 1.4rem;
         padding: 0.625rem;
-        border-left: 0.3125rem solid #ff9494;
+        ${(props) => props.theme.TitleBorderLeft};
     }
     > p {
         margin-bottom: 1.25rem;
-        font-size: 1.1rem;
+        font-size: ${(props) => props.theme.FS.m};
         padding: 0.625rem;
     }
 `;
@@ -45,12 +45,12 @@ const DetailButton = styled.button`
     height: 2.5rem;
     width: 4.5rem;
     border: none;
-    border-radius: 0.625rem;
-    font-size: 0.9rem;
+    border-radius: ${(props) => props.theme.BR.normal};
+    font-size: ${(props) => props.theme.FS.s};
     cursor: pointer;
-    background-color: #ffd1d1;
+    background-color: ${(props) => props.theme.CL.mainPink};
     &:hover {
-        background-color: #ff9494;
+        background-color: ${(props) => props.theme.CL.mainDeepPink};
     }
 `;
 

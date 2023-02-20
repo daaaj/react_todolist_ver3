@@ -1,12 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import * as S from '../shared/ShareStyle';
 
-const Footer = styled(S.DivFlexColumn.withComponent('footer'))`
-    background-color: #ffe3e1;
+const Footer = styled.footer`
+    ${(props) => props.theme.FlexCol};
+    background-color: ${(props) => props.theme.CL.mainPink};
     height: 5rem;
-    max-width: 62.5rem;
-    margin: 0px auto;
+    ${(props) => props.theme.MainWidth};
 `;
 
 function FooterLayout() {
