@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import * as S from '../shared/ShareStyle';
 import axios from 'axios';
 import useInput from '../hooks/useInput';
+import { useDispatch } from 'react-redux';
+import { __modifyTodo } from '../redux/modules/modifyTodoSlice';
+import { useNavigate } from 'react-router';
 
 const ModifyTodoBackground = styled.div`
     position: fixed;
@@ -74,11 +77,14 @@ function ModifyTodo({ todo, display, setDisplay }) {
     // custom hook 사용
     const [newTitle, onChangeNewTitle] = useInput(todo.title);
     const [newContent, onChangeNewContent] = useInput(todo.content);
+    const dispatch = useDispatch();
 
     // 취소버튼 클릭시
     const modifyCancleButton = () => {
         setDisplay('none');
     };
+
+    const navi = useNavigate();
 
     // 수정하기 클릭시
     const modifyTodoButton = () => {
@@ -91,11 +97,10 @@ function ModifyTodo({ todo, display, setDisplay }) {
         } else if (newContent.length > 30) {
             alert('내용의 글자수는 30글자 미만으로...😉');
         } else {
-            axios.patch(`${process.env.REACT_APP_SERVER_URL}/todoList/${todo.id}`, {
-                title: newTitle,
-                content: newContent,
-            });
+            // 새 정보 넘기기
+            dispatch(__modifyTodo({ id: todo.id, title: newTitle, content: newContent }));
             setDisplay('none');
+            navi(`/${todo.id}`);
         }
     };
 

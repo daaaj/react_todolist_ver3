@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import * as S from '../shared/ShareStyle';
-import useInput from '../hooks/useInput';
-import { __createTodo } from '../redux/modules/todoListSlice';
-import axios from 'axios';
+import { __createTodo } from '../redux/modules/createTodoSlice';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 
 const CreateTodoBackground = styled.div`
     position: fixed;
@@ -87,6 +86,8 @@ const ButtonArea = styled(S.DivFlexColumn)`
 `;
 
 function CreateTodo({ display, setDisplay }) {
+    const dispatch = useDispatch();
+
     // 취소버튼 클릭시
     const cancleButton = () => {
         setDisplay('none');
@@ -106,7 +107,8 @@ function CreateTodo({ display, setDisplay }) {
         } else if (data.content === '') {
             alert('내용 작성해야지?🤷‍♀️');
         } else {
-            axios.post(`${process.env.REACT_APP_SERVER_URL}/todoList`, { title: data.title, content: data.content });
+            //axios.post(`${process.env.REACT_APP_SERVER_URL}/todoList`, { title: data.title, content: data.content });
+            dispatch(__createTodo({ title: data.title, content: data.content }));
             setDisplay('none');
         }
     };

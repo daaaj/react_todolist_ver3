@@ -3,11 +3,11 @@ import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import * as S from '../shared/ShareStyle';
-import { __getTodoList } from '../redux/modules/todoListSlice';
+import { __getTodo } from '../redux/modules/getTodoSlice';
+import { __deleteTodo } from '../redux/modules/deleteTodoSlice';
 import { useSelector } from 'react-redux';
-import axios from 'axios';
 import ModifyTodo from '../components/ModifyTodo';
-//12.9375
+
 const DetailArea = styled(S.DivFlexColumn)`
     height: calc(100vh - 13.5625rem);
     max-width: 62.5rem;
@@ -60,27 +60,25 @@ function DetailPage() {
     // modify 모달
     const [display, setDisplay] = useState('none');
 
-    // 모든 list 가져오기
-    const { isLoading, error, todoList } = useSelector((state) => {
-        return state.todoList;
+    // id에 해당하는 todo 가져오기
+    const { isLoading, error, todo } = useSelector((state) => {
+        return state.todo;
     });
 
+    // id 전달하기
     useEffect(() => {
-        dispatch(__getTodoList());
+        dispatch(__getTodo(id));
     }, [dispatch, display]);
-
-    // id = param todo 찾기
-    const todo = todoList.find((list) => list.id === parseInt(id));
 
     // todo 삭제
     const deleteTodoButton = () => {
         let isTrue = window.confirm('진짜 삭제한다요 ??');
-
         if (isTrue === true) {
-            axios.delete(`${process.env.REACT_APP_SERVER_URL}/todoList/${parseInt(id)}`);
+            dispatch(__deleteTodo(id));
             navigate('/');
         }
     };
+
     // todo 수정
     const modifyTodoButton = () => {
         setDisplay('block');
