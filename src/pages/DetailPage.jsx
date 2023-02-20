@@ -59,7 +59,7 @@ function DetailPage() {
     }, [dispatch, display]);
 
     // todo 삭제
-    const deleteTodoButton = () => {
+    const deleteTodoButton = async () => {
         let isTrue = window.confirm('진짜 삭제한다요??🤔');
         if (isTrue === true) {
             dispatch(__deleteTodo(id));
@@ -96,7 +96,7 @@ function DetailPage() {
                     </Button>
                 </DetailButtonArea>
             </DetailBox>
-            <ModifyTodo todo={todo} display={display} setDisplay={setDisplay}></ModifyTodo>
+            <ModifyTodo display={display} setDisplay={setDisplay}></ModifyTodo>
         </DetailArea>
     );
 }

@@ -4,6 +4,7 @@ import { __createTodo } from '../redux/modules/createTodoSlice';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import Button from '../common/Button';
+import { __getTodoList } from '../redux/modules/todoListSlice';
 
 const CreateTodoBackground = styled.div`
     ${(props) => props.theme.ModalBackgroundStyle}
@@ -48,6 +49,7 @@ function CreateTodo({ display, setDisplay }) {
     // 취소버튼 클릭시
     const cancleButton = () => {
         setDisplay('none');
+        reset();
     };
 
     // react hook useForm 사용
@@ -55,6 +57,7 @@ function CreateTodo({ display, setDisplay }) {
         register,
         handleSubmit,
         formState: { errors },
+        reset,
     } = useForm();
 
     // 추가버튼 클릭시
@@ -64,14 +67,16 @@ function CreateTodo({ display, setDisplay }) {
         } else if (data.content === '') {
             alert('내용 작성해야지?🤷‍♀️');
         } else {
+            // 값 리듀서에 전달
             dispatch(__createTodo({ title: data.title, content: data.content }));
             setDisplay('none');
+            reset();
         }
     };
 
     // error
     if (errors.title) {
-        alert('제목의 글자수는 15글자 미만으로...😉');
+        alert('제목의 글자수는 20글자 미만으로...😉');
     } else if (errors.content) {
         alert('내용의 글자수는 30글자 미만으로...😉');
     }
@@ -81,7 +86,7 @@ function CreateTodo({ display, setDisplay }) {
             <CreateTodoBox onSubmit={handleSubmit(onSubmit)}>
                 <TodoTitleArea>
                     <span>제목</span>
-                    <TitleInput type="text" {...register('title', { maxLength: 10, value: '' })} placeholder="제목 입력" />
+                    <TitleInput type="text" {...register('title', { maxLength: 20, value: '' })} placeholder="제목 입력" />
                 </TodoTitleArea>
                 <TodoContentText>
                     <span>내용</span>

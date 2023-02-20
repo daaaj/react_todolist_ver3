@@ -12,7 +12,8 @@ const initialState = {
 export const __deleteTodo = createAsyncThunk('deleteTodo', async (payload, thunkAPI) => {
     try {
         // 삭제 후
-        axios.delete(`${process.env.REACT_APP_SERVER_URL}/todoList/${payload}`);
+        const response = axios.delete(`${process.env.REACT_APP_SERVER_URL}/todoList/${payload}`);
+        return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
         return thunkAPI.rejectWithValue(error);
     }
@@ -25,7 +26,7 @@ export const deleteTodoSlice = createSlice({
     reducers: {},
     // 미들웨어
     extraReducers: (builder) => {
-        builder.addCase(__deleteTodo.pending, (state, atcion) => {
+        builder.addCase(__deleteTodo.pending, (state) => {
             state.isLoading = true;
             state.isError = false;
         });

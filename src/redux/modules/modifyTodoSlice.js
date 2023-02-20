@@ -12,13 +12,11 @@ const initialState = {
 export const __modifyTodo = createAsyncThunk('modifyTodo', async (payload, thunkAPI) => {
     try {
         // payload.id에 해당하는 todo에 수정하기
-        await axios.patch(`${process.env.REACT_APP_SERVER_URL}/todoList/${payload.id}`, {
+        const response = await axios.patch(`${process.env.REACT_APP_SERVER_URL}/todoList/${payload.id}`, {
             title: payload.title,
             content: payload.content,
         });
-        // 수정하고 해당 todo 가져오기
-        //const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/todoList/${payload.id}`);
-        //return thunkAPI.fulfillWithValue(response.data);
+        return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
         return thunkAPI.rejectWithValue(error);
     }
@@ -31,7 +29,7 @@ export const modifyTodoSlice = createSlice({
     reducers: {},
     // 미들웨어
     extraReducers: (builder) => {
-        builder.addCase(__modifyTodo.pending, (state, atcion) => {
+        builder.addCase(__modifyTodo.pending, (state) => {
             state.isLoading = true;
             state.isError = false;
         });

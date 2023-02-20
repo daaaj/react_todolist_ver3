@@ -27,7 +27,7 @@ export const getTodoSlice = createSlice({
     reducers: {},
     // 미들웨어
     extraReducers: (builder) => {
-        builder.addCase(__getTodo.pending, (state, atcion) => {
+        builder.addCase(__getTodo.pending, (state) => {
             state.isLoading = true;
             state.isError = false;
         });

@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux';
 import { __modifyTodo } from '../redux/modules/modifyTodoSlice';
 import { useNavigate } from 'react-router';
 import Button from '../common/Button';
+import { useSelector } from 'react-redux';
+import { __getTodo } from '../redux/modules/getTodoSlice';
 
 const ModifyTodoBackground = styled.div`
     ${(props) => props.theme.ModalBackgroundStyle};
@@ -44,7 +46,12 @@ const ModifyButtonArea = styled.div`
     gap: 1.875rem;
 `;
 
-function ModifyTodo({ todo, display, setDisplay }) {
+function ModifyTodo({ display, setDisplay }) {
+    // todo 가져오기
+    const { isLoading, error, todo } = useSelector((state) => {
+        return state.todo;
+    });
+
     // custom hook 사용
     const [newTitle, onChangeNewTitle] = useInput(todo.title);
     const [newContent, onChangeNewContent] = useInput(todo.content);
@@ -55,7 +62,7 @@ function ModifyTodo({ todo, display, setDisplay }) {
         setDisplay('none');
     };
 
-    const navi = useNavigate();
+    const navigate = useNavigate();
 
     // 수정하기 클릭시
     const modifyTodoButton = () => {
@@ -71,9 +78,16 @@ function ModifyTodo({ todo, display, setDisplay }) {
             // 새 정보 넘기기
             dispatch(__modifyTodo({ id: todo.id, title: newTitle, content: newContent }));
             setDisplay('none');
-            navi(`/${todo.id}`);
+            navigate(`/${todo.id}`);
         }
     };
+
+    if (isLoading) {
+        return <div>로딩 중...</div>;
+    }
+    if (error) {
+        return <div>{error.message}</div>;
+    }
 
     return (
         <ModifyTodoBackground display={display}>

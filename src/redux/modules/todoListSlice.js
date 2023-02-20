@@ -26,7 +26,7 @@ export const todoListSlice = createSlice({
     reducers: {},
     // 미들웨어
     extraReducers: (builder) => {
-        builder.addCase(__getTodoList.pending, (state, atcion) => {
+        builder.addCase(__getTodoList.pending, (state) => {
             state.isLoading = true;
             state.isError = false;
         });
@@ -40,21 +40,6 @@ export const todoListSlice = createSlice({
             state.isError = true;
             state.error = action.payload;
         });
-        // 강의버전
-        // [__getTodoList.pending]: (state, action) => {
-        //     state.isLoading = true;
-        //     state.isError = false;
-        // },
-        // [__getTodoList.fulfilled]: (state, action) => {
-        //     state.isLoading = false;
-        //     state.isError = false;
-        //     state.todos = action.payload;
-        // },
-        // [__getTodoList.rejected]: (state, action) => {
-        //     state.isLoading = false;
-        //     state.isError = true;
-        //     state.error = action.payload;
-        // },
     },
 });
 

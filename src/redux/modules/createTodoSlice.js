@@ -12,9 +12,7 @@ const initialState = {
 export const __createTodo = createAsyncThunk('createTodo', async (payload, thunkAPI) => {
     try {
         // todo 추가하기
-        axios.post(`${process.env.REACT_APP_SERVER_URL}/todoList`, { title: payload.title, content: payload.content });
-        // 추가하고 전체 list 가져오기
-        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/todoList`);
+        const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/todoList`, { title: payload.title, content: payload.content });
         return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
         return thunkAPI.rejectWithValue(error);
@@ -28,7 +26,7 @@ export const createTodoSlice = createSlice({
     reducers: {},
     // 미들웨어
     extraReducers: (builder) => {
-        builder.addCase(__createTodo.pending, (state, atcion) => {
+        builder.addCase(__createTodo.pending, (state) => {
             state.isLoading = true;
             state.isError = false;
         });
