@@ -4,6 +4,7 @@ import deleteTodo from '../modules/deleteTodoSlice';
 import todo from '../modules/getTodoSlice';
 import modifyTodo from '../modules/modifyTodoSlice';
 import createTodo from '../modules/createTodoSlice';
+import users from '../modules/loginSlice';
 
 const store = configureStore({
     reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
         todo,
         modifyTodo,
         createTodo,
+        users,
     },
 });
 export default store;
