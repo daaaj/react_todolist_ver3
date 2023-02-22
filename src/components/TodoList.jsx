@@ -69,7 +69,7 @@ function TodoList({ display }) {
                             <span>{list.title}</span>
                             <p>{list.content}</p>
                         </TodoBoxTextArea>
-                        <Link to={`/${list.id}`}>
+                        <Link to={`/home/${list.id}`}>
                             <Button middlePtoP>상세보기</Button>
                         </Link>
                     </TodoBox>

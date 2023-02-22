@@ -11,10 +11,10 @@ function Router() {
         <BrowserRouter>
             <HeaderLayout />
             <Routes>
-                <Route path="/" element={<MainPage />} />
-                <Route path="/:id" element={<DetailPage />} />
-                <Route path="/login" element={<LoginPage />} />
+                <Route path="/" element={<LoginPage />} />
                 <Route path="/join" element={<JoinPage />} />
+                <Route path="/home" element={<MainPage />} />
+                <Route path="/home/:id" element={<DetailPage />} />
             </Routes>
             <FooterLayout />
         </BrowserRouter>

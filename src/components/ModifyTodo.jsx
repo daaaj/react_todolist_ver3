@@ -78,7 +78,7 @@ function ModifyTodo({ display, setDisplay }) {
             // 새 정보 넘기기
             dispatch(__modifyTodo({ id: todo.id, title: newTitle, content: newContent }));
             setDisplay('none');
-            navigate(`/${todo.id}`);
+            navigate(`/home/${todo.id}`);
         }
     };
 

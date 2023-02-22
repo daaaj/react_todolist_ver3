@@ -4,9 +4,6 @@ import deleteTodo from '../modules/deleteTodoSlice';
 import todo from '../modules/getTodoSlice';
 import modifyTodo from '../modules/modifyTodoSlice';
 import createTodo from '../modules/createTodoSlice';
-import users from '../modules/loginSlice';
-import id from '../modules/getIdSlice';
-import join from '../modules/joinSlice';
 
 const store = configureStore({
     reducer: {
@@ -15,9 +12,6 @@ const store = configureStore({
         todo,
         modifyTodo,
         createTodo,
-        users,
-        id,
-        join,
     },
 });
 export default store;

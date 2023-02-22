@@ -63,7 +63,7 @@ function DetailPage() {
         let isTrue = window.confirm('진짜 삭제한다요??🤔');
         if (isTrue === true) {
             dispatch(__deleteTodo(id));
-            navigate('/');
+            navigate('/home');
         }
     };
 
@@ -85,7 +85,7 @@ function DetailPage() {
                 <DetailSpan>{todo.title}</DetailSpan>
                 <DetailP>{todo.content}</DetailP>
                 <DetailButtonArea>
-                    <Button smallPtoP onClick={() => navigate('/')}>
+                    <Button smallPtoP onClick={() => navigate('/home')}>
                         뒤로가기
                     </Button>
                     <Button smallPtoP onClick={modifyTodoButton}>
