@@ -77,6 +77,19 @@ export const TitleBorderLeft = css`
     border-left: 0.3125rem solid #ff9494;
 `;
 
+// 로그인, 회원가입 input
+export const IdInput = css`
+    width: 90%;
+    height: 2rem;
+    padding: 0.625rem;
+    border: none;
+    border-radius: 1rem;
+    font-size: 1.1rem;
+    &:focus {
+        outline: 0.125rem solid #ff9494;
+    }
+`;
+
 export const CL = {
     mainPink: '#ffd1d1',
     mainBeige: '#fff5e4',
@@ -88,6 +101,7 @@ export const FS = {
     l: '1.6rem', // title
     m: '1.3rem', // content, input
     s: '0.9rem', // button
+    xs: '0.8rem', // message
 };
 
 export const FW = {

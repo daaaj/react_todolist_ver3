@@ -3,10 +3,15 @@ import TodoList from '../components/TodoList';
 import CreateTodo from '../components/CreateTodo';
 import { useState } from 'react';
 import Button from '../common/Button';
+import LogoutButton from '../components/LogoutButton';
+import isLogin from '../util/login';
+import { useNavigate } from 'react-router';
+import { useEffect } from 'react';
 
 const MainArea = styled.div`
     ${(props) => props.theme.MainWidth}
     min-height: calc(100vh - 13.25rem);
+    position: relative;
 `;
 const MainContentArea = styled.div`
     ${(props) => props.theme.FlexCol}
@@ -26,13 +31,22 @@ const MainHeader = styled.div`
 function MainPage() {
     // 모달 보여주기
     const [display, setDisplay] = useState('none');
+    const navigate = useNavigate();
 
     const createTodoButton = () => {
         setDisplay('block');
     };
 
+    useEffect(() => {
+        if (!isLogin()) {
+            alert('토큰이 만료되어 로그아웃 되었습니다');
+            navigate('/');
+        }
+    }, [isLogin()]);
+
     return (
         <MainArea>
+            <LogoutButton></LogoutButton>
             <MainContentArea>
                 <MainHeader>
                     <span>아휴...하기시러...😞</span>

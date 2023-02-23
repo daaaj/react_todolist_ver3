@@ -6,10 +6,13 @@ import ModifyTodo from '../components/ModifyTodo';
 import { __getTodo } from '../redux/modules/getTodoSlice';
 import { __deleteTodo } from '../redux/modules/deleteTodoSlice';
 import Button from '../common/Button';
+import LogoutButton from '../components/LogoutButton';
+import isLogin from '../util/login';
 
 const DetailArea = styled.div`
     ${(props) => props.theme.FlexCol};
     ${(props) => props.theme.MainWidth};
+    position: relative;
     height: calc(100vh - 13.5625rem);
     border-top: 0.3125rem solid ${(props) => props.theme.CL.mainDeepPink};
 `;
@@ -72,6 +75,13 @@ function DetailPage() {
         setDisplay('block');
     };
 
+    useEffect(() => {
+        if (!isLogin()) {
+            alert('토큰이 만료되어 로그아웃 되었습니다');
+            navigate('/');
+        }
+    }, [isLogin()]);
+
     if (isLoading) {
         return <div>로딩 중...</div>;
     }
@@ -81,6 +91,7 @@ function DetailPage() {
 
     return (
         <DetailArea>
+            <LogoutButton topValue={true}></LogoutButton>
             <DetailBox>
                 <DetailSpan>{todo.title}</DetailSpan>
                 <DetailP>{todo.content}</DetailP>

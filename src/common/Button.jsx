@@ -48,4 +48,51 @@ const BtnCustom = styled.button`
                 background-color: #ff9494;
             }
         `}
+
+    ${(props) =>
+        props.LogoutButton &&
+        css`
+            margin: 0;
+            margin-right: 1.875rem;
+            background-color: lightgray;
+            &:hover {
+                background-color: #ff9494;
+            }
+        `}
+
+    ${(props) =>
+        props.loginButton &&
+        css`
+            width: 95%;
+            height: 2.8rem;
+            margin: 0.625rem 0;
+            background-color: #ffd1d1;
+            &:hover {
+                background-color: #ff9494;
+            }
+        `}
+
+
+    ${(props) =>
+        props.joinGrey &&
+        css`
+            margin: 0;
+            height: 2.3rem;
+            background-color: lightgray;
+            &:hover {
+                background-color: #ff9494;
+            }
+        `}
+
+    ${(props) =>
+        props.joinPageButton &&
+        css`
+            width: 5rem;
+            height: 2rem;
+            margin: 10px;
+            background-color: #ffd1d1;
+            &:hover {
+                background-color: #ff9494;
+            }
+        `}
 `;
