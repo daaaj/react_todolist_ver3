@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
-import isLogin from '../util/login';
+import isLogin from '../util/isLogin';
 import Button from '../common/Button';
 
 const LoginArea = styled.div`

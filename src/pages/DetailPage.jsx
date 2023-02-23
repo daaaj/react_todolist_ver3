@@ -7,7 +7,7 @@ import { __getTodo } from '../redux/modules/getTodoSlice';
 import { __deleteTodo } from '../redux/modules/deleteTodoSlice';
 import Button from '../common/Button';
 import LogoutButton from '../components/LogoutButton';
-import isLogin from '../util/login';
+import isLogin from '../util/isLogin';
 
 const DetailArea = styled.div`
     ${(props) => props.theme.FlexCol};

@@ -4,7 +4,7 @@ import CreateTodo from '../components/CreateTodo';
 import { useState } from 'react';
 import Button from '../common/Button';
 import LogoutButton from '../components/LogoutButton';
-import isLogin from '../util/login';
+import isLogin from '../util/isLogin';
 import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
 
